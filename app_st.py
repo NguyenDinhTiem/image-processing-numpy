@@ -21,8 +21,8 @@ def main():
         st.image(image, caption='Hình ảnh đã tải lên')
 
         # Áp dụng chức năng biến đổi
+        # transformed_image = cv2.cvtColor(apply_transformation(image, transformation), cv2.COLOR_BGR2RGB)
         transformed_image = apply_transformation(image, transformation)
-
         # Hiển thị hình ảnh sau khi biến đổi
         st.subheader("Hình ảnh sau khi biến đổi")
         st.image(transformed_image, caption='Hình ảnh đã biến đổi')
@@ -58,7 +58,7 @@ def apply_transformation(image, transformation):
 
 def save_image(transformation, image, save_path):
     if transformation == "Xóa nền":
-        cv2.imwrite(save_path, image)
+        cv2.imwrite(save_path,  cv2.cvtColor(image, cv2.COLOR_RGBA2BGRA))
     else:
         cv2.imwrite(save_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
 
