@@ -5,7 +5,12 @@ from rembg import remove
 import os
 def main():
     st.title("Siêu Ứng Dụng Xịn Nhất Thế Giới 😍")
-
+    # Lựa chọn chức năng biến đổi
+    st.sidebar.subheader("Chức năng biến đổi")
+    transformation = st.sidebar.selectbox(
+        "Chọn chức năng",
+        ("Xóa nền", "Phóng to", "Thu nhỏ", "Lật ảnh ngang", "Lật ảnh dọc")
+    )
     # Tải lên hình ảnh
     uploaded_file = st.file_uploader("Chọn một hình ảnh", type=["png", "jpg", "jpeg"])
 
@@ -14,13 +19,6 @@ def main():
         image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         st.image(image, caption='Hình ảnh đã tải lên')
-
-        # Lựa chọn chức năng biến đổi
-        st.sidebar.subheader("Chức năng biến đổi")
-        transformation = st.sidebar.selectbox(
-            "Chọn chức năng",
-            ("Xóa nền", "Phóng to", "Thu nhỏ", "Lật ảnh ngang", "Lật ảnh dọc")
-        )
 
         # Áp dụng chức năng biến đổi
         transformed_image = apply_transformation(image, transformation)
