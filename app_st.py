@@ -29,14 +29,15 @@ def main():
 
         # Lưu kết quả thành file ảnh
         save_path = "result.png"
-        save_image(transformed_image, save_path)
-
+     
+        save_image(transformation, transformed_image, save_path)
+        
         # Tải xuống file ảnh
         with open(save_path, "rb") as file:
             btn = st.download_button(
                     label="Download image",
                     data=file,
-                    file_name="output.png",
+                    file_name="result.png",
                     mime="image/png"
                 )
 def apply_transformation(image, transformation):
@@ -55,8 +56,11 @@ def apply_transformation(image, transformation):
         transformed_image = image
     return transformed_image
 
-def save_image(image, save_path):
-    cv2.imwrite(save_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+def save_image(transformation, image, save_path):
+    if transformation == "Xóa nền":
+        cv2.imwrite(save_path, image)
+    else:
+        cv2.imwrite(save_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
 
 if __name__ == '__main__':
     main()
